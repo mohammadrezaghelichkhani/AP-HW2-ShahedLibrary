@@ -276,13 +276,12 @@ public:
     }
     string filterByTypeAndShowInfo(int libId, BookType type)
     {
-        vector<Book> v = ShahedLibraries.filterByType(int libId, BookType type);
         string s;
-        for (int i = 0; i < v.size(); i++)
+        for (int i = 0; i < filterByType(libId,type).size(); i++)
         {
             s += to_string(i + 1);
             s += ". ";
-            s += v[i].getName();
+            s += filterByType(libId,type)[i].getName();
             s += "\n";
         }
         return s;
