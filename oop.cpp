@@ -188,13 +188,13 @@ public:
             ShahedLibraries.push_back(NewLibrary);
         }
     }
-    void addBook(int libId, string name, Publisher publisher, BookType type)
+    void addBook(int libId, string name, Publisher publisher(), BookType type)
     {
         for (int i = 0; i < ShahedLibraries.size(); i++)
         {
             if (ShahedLibraries[i].GetId() == libId)
             {
-                Book NewBook(string name, Publisher publisher, BookType type);
+                Book NewBook(name, publisher,  type);
                 ShahedLibraries[i].AddBook(NewBook);
                 return;
             }
@@ -267,7 +267,7 @@ public:
                 {
                     if (ShahedLibraries[i].listOfBooks()[j].getBookType() == type)
                     {
-                        v.push_back(ShahedLibraries[i].listOfBooks[j]);
+                        v.push_back(ShahedLibraries[i].listOfBooks()[j]);
                     }
                 }
             }
@@ -388,11 +388,11 @@ public:
         vector<Library> v;
         for (int i = 0; i < ShahedLibraries.size(); i++)
         {
-            for (int j = 0; j < ShahedLibraries[i].size(); j++)
+            for (int j = 0; j < ShahedLibraries[i].listOfBooks().size(); j++)
             {
                 if (ShahedLibraries[i].listOfBooks()[j].getName() == name)
                 {
-                    v.push_back(ShahedLibraries[i].listOfBooks()[j]);
+                    v.push_back(ShahedLibraries[i]);
                     break;
                 }
             }
