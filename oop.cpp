@@ -71,8 +71,9 @@ public:
     {
         return borrowed;
     }
-    void changeBorrow(){
-        borrowed=!borrowed;
+    void changeBorrow()
+    {
+        borrowed = !borrowed;
     }
 };
 class Member
@@ -194,7 +195,7 @@ public:
         {
             if (ShahedLibraries[i].GetId() == libId)
             {
-                Book NewBook(name, publisher,  type);
+                Book NewBook(name, publisher, type);
                 ShahedLibraries[i].AddBook(NewBook);
                 return;
             }
@@ -277,11 +278,11 @@ public:
     string filterByTypeAndShowInfo(int libId, BookType type)
     {
         string s;
-        for (int i = 0; i < filterByType(libId,type).size(); i++)
+        for (int i = 0; i < filterByType(libId, type).size(); i++)
         {
             s += to_string(i + 1);
             s += ". ";
-            s += filterByType(libId,type)[i].getName();
+            s += filterByType(libId, type)[i].getName();
             s += "\n";
         }
         return s;
@@ -308,7 +309,7 @@ public:
                                 if (ShahedMembers[k].getBooks().size() == 5)
                                 {
                                     cout << "YOU HAVE BORROWED 5 BOOKS .YOU CANT BORROE MORE THAN 5 BOOKS";
-                                     return;
+                                    return;
                                 }
                                 ShahedMembers[k].getBooks().push_back(ShahedLibraries[i].listOfBooks()[j]);
                                 ShahedLibraries[i].listOfBooks()[j].changeBorrow();
