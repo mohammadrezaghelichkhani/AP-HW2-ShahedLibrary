@@ -27,8 +27,8 @@ public:
         id = numPublisher;
         numPublisher++;
     };
-    Publisher(){
-
+    Publisher()
+    {
     }
     int getId()
     {
@@ -53,7 +53,7 @@ public:
     }
     void showInfo()
     {
-            cout << id << "." << name;
+        cout << id << "." << name;
     }
     string getName()
     {
@@ -70,6 +70,9 @@ public:
     bool getBorrow()
     {
         return borrowed;
+    }
+    void changeBorrow(){
+        borrowed=!borrowed;
     }
 };
 class Member
@@ -128,7 +131,7 @@ public:
     {
         for (int i = 0; i < books.size(); i++)
         {
-            if (books[i].name() == name)
+            if (books[i].getName() == name)
             {
                 return books[i];
             }
@@ -147,7 +150,7 @@ public:
         vector<Book> v;
         for (int i = 0; i < books.size(); i++)
         {
-            if (books[i].getBookType()== type)
+            if (books[i].getBookType() == type)
             {
                 v.push_back(books[i]);
             }
@@ -225,7 +228,7 @@ public:
     }
     vector<Book> getAllBooks(int libId)
     {
-        for (int i = 0; i < ShahedLibraries[i]; i++)
+        for (int i = 0; i < ShahedLibraries.size(); i++)
         {
             if (ShahedLibraries[i].GetId() == libId)
             {
@@ -242,11 +245,11 @@ public:
         {
             if (ShahedLibraries[i].GetId() == libId)
             {
-                for (int j = 0; j < ShahedLibraries[i].listOfBooks.size(); j++)
+                for (int j = 0; j < ShahedLibraries[i].listOfBooks().size(); j++)
                 {
                     s += to_string(j + 1);
                     s += ". ";
-                    s += ShahedLibraries[i].listOfBooks[j].getName();
+                    s += ShahedLibraries[i].listOfBooks()[j].getName();
                     s += "\n";
                 }
             }
@@ -260,9 +263,9 @@ public:
         {
             if (ShahedLibraries[i].GetId() == libId)
             {
-                for (int j = 0; j < ShahedLibraries[i].listOfBooks.size(); j++)
+                for (int j = 0; j < ShahedLibraries[i].listOfBooks().size(); j++)
                 {
-                    if (ShahedLibraries[i].listOfBooks[j].getBookType() == type)
+                    if (ShahedLibraries[i].listOfBooks()[j].getBookType() == type)
                     {
                         v.push_back(ShahedLibraries[i].listOfBooks[j]);
                     }
@@ -281,8 +284,8 @@ public:
             s += ". ";
             s += v[i].getName();
             s += "\n";
-        }return s;
-
+        }
+        return s;
     }
     void borrow(string memberId, int libraryId, string name)
     {
@@ -305,10 +308,11 @@ public:
                             {
                                 if (ShahedMembers[k].getBooks().size() == 5)
                                 {
-                                    cout << "YOU HAVE BORROWED 5 BOOKS .YOU CANT BORROE MORE THAN 5 BOOKS" return;
+                                    cout << "YOU HAVE BORROWED 5 BOOKS .YOU CANT BORROE MORE THAN 5 BOOKS";
+                                     return;
                                 }
                                 ShahedMembers[k].getBooks().push_back(ShahedLibraries[i].listOfBooks()[j]);
-                                ShahedLibraries[i].listOfBooks()[j].getBorrow() = 1;
+                                ShahedLibraries[i].listOfBooks()[j].changeBorrow();
                                 return;
                             }
                         }
@@ -323,23 +327,24 @@ public:
         {
             if (ShahedLibraries[i].GetId() == libraryid)
             {
-                    for (int j = 0; j < ShahedMembers.size(); j++)
+                for (int j = 0; j < ShahedMembers.size(); j++)
+                {
+                    if (ShahedMembers[j].getId() == memberId)
                     {
-                        if (ShahedMembers[j].getId() == memberId)
+                        for (int k = 0; k < ShahedMembers[j].getBooks().size(); k++)
                         {
-                            for (int k = 0; k < ShahedMembers[j].getBooks().size(); k++)
+                            if (ShahedMembers[j].getBooks()[k].getName() == name)
                             {
-                                if (ShahedMembers[j].getBooks()[k].getName() == name)
-                                {
-                                    ShahedMembers[j].getBooks()[k].getBorrow() = 0;
-                                    ShahedMembers[j].getBooks().erase(ShahedMembers[j].getBooks().begin() + k);
-                                }
+                                ShahedMembers[j].getBooks()[k].changeBorrow();
+                                ShahedMembers[j].getBooks().erase(ShahedMembers[j].getBooks().begin() + k);
                             }
                         }
                     }
                 }
             }
         }
+    }
+
 public:
     int size()
     {
@@ -357,7 +362,7 @@ public:
         {
             for (int j = 0; j < ShahedLibraries[i].listOfBooks().size(); j++)
             {
-                if (ShahedLibraries[i].listOfBooks()[j].getName == name)
+                if (ShahedLibraries[i].listOfBooks()[j].getName() == name)
                 {
                     v.push_back(ShahedLibraries[i]);
                     break;
@@ -383,18 +388,22 @@ public:
         vector<Library> v;
         for (int i = 0; i < ShahedLibraries.size(); i++)
         {
-            for (int j = 0; j < ShahedLibraries[i].size();j++)
+            for (int j = 0; j < ShahedLibraries[i].size(); j++)
             {
-                if(ShahedLibraries[i].listOfBooks()[j].getName()==name){
+                if (ShahedLibraries[i].listOfBooks()[j].getName() == name)
+                {
                     v.push_back(ShahedLibraries[i].listOfBooks()[j]);
                     break;
                 }
             }
         }
-        for(int i=0;i<v.size()-1;i++){
-            for(int j=i+1;j<v.size();j++){
-                if(abs(v[j].getPosition()-position)<abs(v[i].getPosition()-position)||((abs(v[j].getPosition()-position)==abs(v[i].getPosition()-position))&&v[j].getName()<v[i].getName())){
-                    swap(v[i],v[j]);
+        for (int i = 0; i < v.size() - 1; i++)
+        {
+            for (int j = i + 1; j < v.size(); j++)
+            {
+                if (abs(v[j].getPosition() - position) < abs(v[i].getPosition() - position) || ((abs(v[j].getPosition() - position) == abs(v[i].getPosition() - position)) && v[j].getName() < v[i].getName()))
+                {
+                    swap(v[i], v[j]);
                 }
             }
         }
