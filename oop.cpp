@@ -27,6 +27,9 @@ public:
         id = numPublisher;
         numPublisher++;
     };
+    Publisher(){
+
+    }
     int getId()
     {
         return id;
@@ -41,16 +44,15 @@ class Book
     bool borrowed;
 
 public:
-    Book(string name, Publisher publisher, BookType type)
+    Book(string name, Publisher publisher(), BookType type)
     {
         this->name = name;
-        this->publisher = publisher;
+        this->publisher = publisher();
         this->type = type;
         borrowed = 0;
     }
     void showInfo()
     {
-        |
             cout << id << "." << name;
     }
     string getName()
@@ -126,7 +128,7 @@ public:
     {
         for (int i = 0; i < books.size(); i++)
         {
-            if (books[i].name == name)
+            if (books[i].name() == name)
             {
                 return books[i];
             }
@@ -145,7 +147,7 @@ public:
         vector<Book> v;
         for (int i = 0; i < books.size(); i++)
         {
-            if (books[i].getBookType(== type))
+            if (books[i].getBookType()== type)
             {
                 v.push_back(books[i]);
             }
@@ -279,9 +281,9 @@ public:
             s += ". ";
             s += v[i].getName();
             s += "\n";
-        }
+        }return s;
+
     }
-    return s;
     void borrow(string memberId, int libraryId, string name)
     {
         for (int i = 0; i < ShahedLibraries.size(); i++)
@@ -338,7 +340,7 @@ public:
                 }
             }
         }
-public
+public:
     int size()
     {
         int x = 0;
