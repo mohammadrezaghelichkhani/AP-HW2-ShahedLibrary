@@ -1,7 +1,4 @@
-#include <iostream>
-#include <vector>
-#include <string>
-#include <math.h>
+#include<bits/stdc++.h>
 using namespace std;
 int numPublisher = 1;
 int numLibrary = 1;
